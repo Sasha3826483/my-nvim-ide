@@ -2,4 +2,4 @@
 
 input="/workspace$(realpath $1)"
 
-docker exec -it neovim-container nvim $input
+docker exec -it neovim nvim $input

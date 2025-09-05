@@ -32,7 +32,7 @@ RUN mkdir -p /root/.config/nvim
 
 # Копируем пользовательский конфигурационный файл init.lua
 # Предполагается, что init.lua находится в той же директории, где Dockerfile
-COPY ./.config/nvim/init.lua /root/.config/nvim/init.lua
+COPY ./nvim-config/init.lua /root/.config/nvim/init.lua
 
 # Устанавливаем переменную окружения для корректной работы терминала
 ENV TERM=xterm-256color
