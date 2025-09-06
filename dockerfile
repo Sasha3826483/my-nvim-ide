@@ -18,25 +18,20 @@ RUN apk add --no-cache \
     nodejs \
     npm \
     clang \
-    clang-extra-tools
+    clang-extra-tools \
+    lldb
 
 # Python LSP
 RUN npm install -g pyright bash-language-server
 
 # Устанавливаем рабочую директорию
-# /workspace будет точкой монтирования для корневой директории хоста (или другой)
 WORKDIR /workspace
 
 # Создаём директорию для конфигурации Neovim
 RUN mkdir -p /root/.config/nvim
 
 # Копируем пользовательский конфигурационный файл init.lua
-# Предполагается, что init.lua находится в той же директории, где Dockerfile
-COPY ./nvim-config/init.lua /root/.config/nvim/init.lua
+COPY init.lua /root/.config/nvim/init.lua
 
 # Устанавливаем переменную окружения для корректной работы терминала
 ENV TERM=xterm-256color
-
-#ENTRYPOINT ["nvim"]
-
-#CMD ["/workspace"]

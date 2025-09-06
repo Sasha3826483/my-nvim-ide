@@ -220,7 +220,7 @@ require("lazy").setup({
             -- Настройка адаптера отладки для C/C++ (lldb)
             dap.adapters.lldb = {
                 type = "executable",
-                command = "lldb-vscode", -- Путь к lldb-vscode, если требуется
+                command = "lldb-dap", -- Путь к lldb-vscode, если требуется
                 name = "lldb"
             }
             -- Конфигурация отладки для C/C++
