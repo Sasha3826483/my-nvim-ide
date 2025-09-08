@@ -5,3 +5,5 @@ cat $shl | grep "alias neovim" &>/dev/null && { echo "OK: Алиас уже со
 
 echo "Сброка алиаса..."; sleep 1
 echo "alias neovim=\"$PWD/neovim.sh\"" >> $shl && echo "OK: Алиас 'neovim' успешно создан"
+
+source $HOME/.zshrc

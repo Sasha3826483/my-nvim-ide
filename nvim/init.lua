@@ -1,4 +1,4 @@
--- init.lua: Основной файл конфигурации Neovim
+-- init.lua: Основной файл конфигурации Neovi0
 -- Этот файл задаёт основные настройки редактора, управляет установкой плагинов через lazy.nvim,
 -- настраивает автодополнение с LSP (включая поддержку C/C++), отладку через DAP и интеграцию с UI.
 
@@ -342,22 +342,24 @@ cmp.setup({
 -- Открытие/закрытие файлового менеджера
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 
--- Компиляция и запуск C/C++ кода
+-- Компиляция и запуск C/C++ кода (исправленная версия)
 vim.keymap.set("n", "<leader>cc", function()
     vim.cmd("w") -- Сохранить текущий файл
-    local result = vim.fn.system("g++ -g -std=c++20 -o a.out " .. vim.fn.expand("%"))
+    local filename = vim.fn.expand("%:r") -- Имя файла без расширения
+    local result = vim.fn.system("g++ -g -std=c++20 -o ./" .. filename .. " " .. vim.fn.expand("%"))
     if vim.v.shell_error == 0 then
-        vim.fn.system("./a.out") -- Запуск скомпилированной программы
+        vim.fn.system("./" .. filename) -- Запуск из текущей директории
         print("Compile and run " .. vim.fn.expand("%"))
     else
-        print("Compilation failed: " .. result) -- Вывод ошибки компиляции
+        print("Compilation failed: " .. result)
     end
 end, { desc = "Compile and run C/C++" })
 
 -- Компиляция и запуск в терминале
 vim.keymap.set("n", "<leader>cr", function()
     vim.cmd("w") -- Сохранить текущий файл
-    vim.cmd("term g++ -g -std=c++20 -o a.out % && ./a.out") -- Запуск в терминале
+    local filename = vim.fn.expand("%:r") -- Имя файла без расширения
+    vim.cmd("term cd %:p:h && g++ -g -std=c++20 -o " .. filename .. " % && ./" .. filename)
 end, { desc = "Compile and run in terminal" })
 
 -- Настройка диагностики
